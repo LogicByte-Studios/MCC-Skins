@@ -1,0 +1,40 @@
+<%- include('partials/header', { 
+    title: skin ? `${skin.username}'s Renders` : 'Player Not Found',
+    pageType: 'player',
+    skin: skin 
+}) %>
+
+<% if (error) { %>
+    <div class="error-box">
+        <h2>Error</h2>
+        <p><%= error %></p>
+        <a href="/" class="btn btn-primary">Try another username</a> </div>
+<% } else { %>
+    <div class="skin-results">
+        <p class="subtitle">High-quality renders for <strong><%= skin.username %></strong></p>
+        <div class="grid">
+            <div class="card">
+                <h3>3D Head Render</h3>
+                <img src="/head/3d/<%= skin.username %>" alt="<%= skin.username %>'s 3D Head" class="render-image head">
+                <a href="/head/3d/<%= skin.username %>" download class="btn btn-secondary">Download</a>
+            </div>
+            <div class="card">
+                <h3>2D Avatar</h3>
+                <img src="/head/<%= skin.username %>" alt="<%= skin.username %>'s Avatar" class="render-image avatar">
+                <a href="/head/<%= skin.username %>" download class="btn btn-secondary">Download</a>
+            </div>
+            <div class="card">
+                <h3>3D Body Render</h3>
+                <img src="/skin/3d/<%= skin.username %>" alt="<%= skin.username %>'s 3D Body" class="render-image body">
+                <a href="/skin/3d/<%= skin.username %>" download class="btn btn-secondary">Download</a>
+            </div>
+            <div class="card">
+                <h3>Raw Skin Texture</h3>
+                <img src="/skin/<%= skin.username %>" alt="<%= skin.username %>'s Skin Texture" class="render-image skin">
+                <a href="/skin/<%= skin.username %>" download class="btn btn-secondary">Download</a>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+<%- include('partials/footer') %>

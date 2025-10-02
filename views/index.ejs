@@ -1,0 +1,83 @@
+<%- include('partials/header', { 
+    title: 'MCC Skins - High Quality Minecraft Skin Renderer & API', 
+    pageType: 'home',
+    skin: null
+}) %>
+
+<p class="subtitle">A fast, free, and high-quality Minecraft skin rendering service. Enter a username to view renders or explore our API endpoints below.</p>
+
+<form id="search-form">
+    <input type="text" id="username" name="username" placeholder="Enter Minecraft Username..." required>
+    <button type="submit" class="btn btn-secondary" id="search-button">
+        <span class="button-text">View Renders</span>
+    </button>
+</form>
+
+<section class="about-section">
+    <h2>About MCC Skins</h2>
+    <p class="about-text">
+        MCC Skins is a powerful, developer-focused tool designed to provide the Minecraft community with fast, easy-to-use, and high-quality skin renders. Whether you are a server owner, a web developer, a content creator, or a designer, our service offers a simple yet robust API to integrate Minecraft skins into your projects seamlessly.
+        <br><br>
+        Our goal is to eliminate the need for complex rendering setups. With our user-friendly URL structure, you can generate dynamic avatars for your forum, display player heads on your server's live map, create engaging thumbnails for your YouTube videos, or build custom Discord bots that showcase player identities. All renders are generated on-the-fly and cached for performance, ensuring a fast and reliable experience. This service is proudly developed and maintained by LogicByte Studios as a free contribution to the creative community we love.
+    </p>
+</section>
+
+<section class="api-docs">
+    <h2>Our Render API Endpoints</h2>
+    
+    <div class="endpoint">
+        <div class="endpoint-preview"><img src="/head/3d/Herobrine" alt="3D Head Example"></div>
+        <div class="endpoint-info">
+            <h4>3D Head Render</h4><p>Generates a high-quality isometric 3D render of the player's head.</p><code>/head/3d/&lt;username&gt;</code>
+        </div>
+    </div>
+    <div class="endpoint">
+        <div class="endpoint-preview"><img src="/skin/3d/Herobrine" alt="3D Body Example" class="preview-body"></div>
+        <div class="endpoint-info">
+            <h4>3D Body Render</h4><p>Generates a high-quality isometric 3D render of the player's full body.</p><code>/skin/3d/&lt;username&gt;</code>
+        </div>
+    </div>
+    <div class="endpoint">
+        <div class="endpoint-preview"><img src="/head/Herobrine" alt="2D Avatar Example"></div>
+        <div class="endpoint-info">
+            <h4>2D Avatar (Layered)</h4><p>Creates a flat, face-on 2D avatar of the player's head with the accessory layer.</p><code>/head/&lt;username&gt;</code>
+        </div>
+    </div>
+    <div class="endpoint">
+        <div class="endpoint-preview"><img src="/body/Herobrine" alt="2D Body Example" class="preview-body"></div>
+        <div class="endpoint-info">
+            <h4>2D Body Render</h4><p>Generates a flat, front-facing 2D render of the player's full body.</p><code>/body/&lt;username&gt;</code>
+        </div>
+    </div>
+     <div class="endpoint">
+        <div class="endpoint-preview"><img src="/skin/Herobrine" alt="Skin Texture Example" class="preview-skin"></div>
+        <div class="endpoint-info">
+            <h4>Raw Skin Texture</h4><p>Provides the raw 64x64 pixel skin texture file as a PNG image.</p><code>/skin/&lt;username&gt;</code>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const usernameInput = document.getElementById('username');
+        const username = usernameInput.value.trim();
+        const searchButton = document.getElementById('search-button');
+        const buttonText = searchButton.querySelector('.button-text');
+
+        if (username) {
+            searchButton.classList.add('loading');
+            
+            const spinner = document.createElement('span');
+            spinner.className = 'spinner secondary';
+            buttonText.textContent = 'Searching...';
+            searchButton.prepend(spinner);
+
+            window.location.href = `/player/${username}`;
+        } else {
+            usernameInput.focus();
+        }
+    });
+</script>
+
+<%- include('partials/footer') %>
